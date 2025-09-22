@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Comunidad SUTERM — Directorio</title>
-  <meta name="description" content="Directorio de negocios de la Comunidad SUTERM: busca por sección, ciudad y categoría.">
+  <title>Comunidad SUTERM — Detalle</title>
+  <meta name="description" content="Detalle del negocio dentro de la Comunidad SUTERM: información, contacto, galería y ubicación.">
   <link rel="stylesheet" href="style.css">
-  <script src="index.js" defer></script>
+  <script src="detalle.js" defer></script>
 
-  <meta property="og:title" content="Comunidad SUTERM — Directorio">
-  <meta property="og:description" content="Directorio de negocios de la Comunidad SUTERM: busca por sección, ciudad y categoría.">
+  <meta property="og:title" content="Comunidad SUTERM — Detalle">
+  <meta property="og:description" content="Detalle del negocio dentro de la Comunidad SUTERM: información, contacto, galería y ubicación.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#7A003C">
 
@@ -18,81 +18,47 @@
   <header class="site-header">
     <div class="container">
       <h1 class="app-title">Comunidad <span class="suterm">SUTERM</span></h1>
-      <p class="app-subtitle">Negocio de SUTERMISTAS para SUTERMISTAS</p>
+      <a class="btn outline" href="index.html">← Volver</a>
     </div>
   </header>
 
-  <section id="announcementSection" class="announcement container hidden">
-    <h2>Anuncio destacado</h2>
-    <div class="announce-preview">
-      <img id="announceImg" class="announce-img" alt="Imagen del anuncio">
-      <div class="announce-body">
-        <h3 id="annTitle" class="announce-title"></h3>
-        <p id="annDesc" class="announce-desc"></p>
-      </div>
-    </div>
-  </section>
-  
-  <section class="container form-section">
-    <h2>Crear anuncio</h2>
-    <p class="muted">Sube un anuncio con imagen, título y descripción. Solo habrá uno activo: al subir uno nuevo, se reemplaza el anterior.</p>
-    <form id="announceForm" class="announce-form">
-      <div class="row">
-        <div>
-          <label for="annTitleInput">Título</label>
-          <input type="text" id="annTitleInput" placeholder="Título del anuncio" required>
-        </div>
-        <div>
-          <label for="annDescInput">Descripción</label>
-          <textarea id="annDescInput" placeholder="Descripción del anuncio" required></textarea>
-        </div>
-      </div>
-      <div>
-        <label for="annImageInput">Imagen</label>
-        <input type="file" id="annImageInput" accept="image/*">
-      </div>
-      <div class="actions">
-        <button type="submit" class="btn">Guardar anuncio</button>
-        <button type="button" class="btn-delete" id="annDelete">Borrar anuncio</button>
-      </div>
-    </form>
-  </section>
-
   <main class="container">
-    <section class="search-bar">
-      <div class="search-row">
-        <input id="q" type="search" placeholder="Buscar por nombre o descripción…" autocomplete="off" />
-        <button id="btnBuscar">Buscar</button>
-      </div>
+    <div id="detailLoading">Cargando…</div>
+    <div id="detailError" class="hidden">No se pudo cargar el negocio.</div>
 
-      <div class="filters">
-        <div class="filter">
-          <label for="seccion">Sección</label>
-          <select id="seccion"><option value="">Todas</option></select>
+    <article id="detail" class="hidden">
+      <header class="detail-header">
+        <img id="detailLogo" class="detail-logo" alt="Logo del negocio" />
+        <div>
+          <h2 id="detailName" class="detail-name"></h2>
+          <p id="detailMeta" class="detail-meta"></p>
         </div>
-        <div class="filter">
-          <label for="ciudad">Ciudad</label>
-          <select id="ciudad"><option value="">Todas</option></select>
-        </div>
-        <div class="filter">
-          <label for="categoria">Categoría</label>
-          <select id="categoria"><option value="">Todas</option></select>
-        </div>
-      </div>
-    </section>
+      </header>
 
-    <section class="states" aria-live="polite">
-      <div id="loading" class="hidden">Cargando…</div>
-      <div id="empty">Empieza buscando o usando los filtros.</div>
-      <div id="noResults" class="hidden">No se encontraron resultados.</div>
-      <div id="error" class="hidden">Error al cargar los datos.</div>
-    </section>
+      <section class="detail-description">
+        <h3>Descripción</h3>
+        <p id="detailDesc"></p>
+      </section>
 
-    <section class="results" id="results"></section>
+      <section class="detail-gallery">
+        <h3>Galería</h3>
+        <div class="gallery" id="detailGallery"></div>
+      </section>
+
+      <section class="detail-actions">
+        <a id="btnWhatsApp" class="btn" href="#" target="_blank">WhatsApp</a>
+        <a id="btnWeb" class="btn outline" href="#" target="_blank">Contacta aquí y obtén un descuento</a>
+      </section>
+    </article>
   </main>
 
   <footer class="site-footer">
     <div class="container"><small>© Comunidad SUTERM</small></div>
   </footer>
+
+  <div id="lightbox" class="lightbox hidden">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightboxImg">
+  </div>
 </body>
 </html>

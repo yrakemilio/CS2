@@ -21,7 +21,7 @@ function pickImages(it){
 
 /// ⚠️ Cambia por tu URL pública CSV
 
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTBAuMdD25rU-PCyLnn_6nOeb_NHRQtOHglGFL2QqMN7BD98JmWvJ1O2o6LkOjhwP0KCxYzTY_V3u9R/pub?gid=0&single=true&output=csv";
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRM9140leocSHNEKxfzFonrlEQdLGklsM3hXBZ_iiwdS4CwsDLeRI-w8c7RjkoqsITvrCCqgYku46-8/pub?output=csv";
 const $ = (s)=>document.querySelector(s);
 
 function getParam(name){ return new URL(location.href).searchParams.get(name); }

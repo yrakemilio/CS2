@@ -37,8 +37,22 @@ function render(row){
   $("#detailName").textContent = row.nombre || "Sin nombre";
   $("#detailMeta").textContent = [row.categoria,row.ciudad,row.seccion].filter(Boolean).join(" • ");
   $("#detailDesc").textContent = row.descripcion || "Sin descripción";
+
+  // Botón 1: WhatsApp (sin cambios)
   if(row.whatsapp) $("#btnWhatsApp").href = `https://wa.me/${row.whatsapp}`;
-  if(row.pagina) $("#btnWeb").href = row.pagina;
+
+  // Botón 2: Web / Contacto
+  // Ahora el texto viene de la columna `descuento` de la hoja.
+  const webBtn = $("#btnWeb");
+  if (row.pagina && row.pagina.trim() !== "") {
+    webBtn.href = row.pagina;
+    webBtn.textContent = row.descuento && row.descuento.trim() !== "" ? row.descuento : "Visitar sitio";
+    webBtn.classList.remove("hidden");
+  } else {
+    // Si no hay URL, ocultamos el botón para evitar href="#"
+    webBtn.classList.add("hidden");
+  }
+
   const imgs=[row.imagen1,row.imagen2,row.imagen3,row.imagen4,row.imagen5].filter(Boolean);
   $("#detailGallery").innerHTML = imgs.map((src,i)=>`<img src="${src}" alt="Foto ${i+1}">`).join("");
   $("#detailLoading").classList.add("hidden");

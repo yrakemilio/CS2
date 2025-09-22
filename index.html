@@ -38,27 +38,27 @@
     }
     .legal-box button:hover { filter: brightness(1.05); }
 
-    /* Sección de anuncios */
-    .main-grid {
-      display: grid;
-      grid-template-columns: 250px 1fr;
-      gap: 16px;
-      margin-top: 16px;
-    }
-    .ad-section {
+    /* Anuncio lateral */
+    #lateralAd {
+      position: absolute;
+      top: 100px;
+      left: 0;
+      width: 250px;
       background: #fff;
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
+      padding: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 10;
     }
-
-    @media(max-width:900px){
-      .main-grid{grid-template-columns:1fr;}
-      .ad-section{order:2;}
+    #lateralAd h3 {
+      margin-top: 0;
+      font-size: 1rem;
+      color: var(--cta);
+    }
+    #lateralAd p {
+      font-size: 0.9rem;
+      color: var(--muted);
     }
   </style>
 </head>
@@ -70,15 +70,18 @@
       <h2>⚠️ Aviso de Deslinde de Responsabilidad </h2>
       <p>
         La Comunidad SUTERM, así como el Sindicato Único de Trabajadores Electricistas de la República Mexicana (SUTERM), actúan únicamente como plataformas de promoción y difusión de los negocios, servicios y actividades de sus agremiados.
-
-Se deslindan expresamente de cualquier responsabilidad legal, fiscal, civil o penal que pueda derivarse del uso, contratación, adquisición o consumo de los productos y servicios ofrecidos por los agremiados a través de esta comunidad.
-
-Toda relación comercial, contractual o transacción que se lleve a cabo entre los usuarios y los agremiados es estrictamente responsabilidad de las partes involucradas. La Comunidad SUTERM y el SUTERM no garantizan la legalidad, calidad, seguridad, cumplimiento fiscal ni cumplimiento normativo de los negocios promocionados.
-
-Al acceder y utilizar esta plataforma, usted reconoce y acepta que cualquier acción relacionada con los productos o servicios ofrecidos por los agremiados se realiza bajo su propio riesgo y responsabilidad, eximiendo a la Comunidad SUTERM y al SUTERM de cualquier reclamación, demanda o contingencia legal.
+        Se deslindan expresamente de cualquier responsabilidad legal, fiscal, civil o penal que pueda derivarse del uso, contratación, adquisición o consumo de los productos y servicios ofrecidos por los agremiados a través de esta comunidad.
+        Toda relación comercial, contractual o transacción que se lleve a cabo entre los usuarios y los agremiados es estrictamente responsabilidad de las partes involucradas. La Comunidad SUTERM y el SUTERM no garantizan la legalidad, calidad, seguridad, cumplimiento fiscal ni cumplimiento normativo de los negocios promocionados.
+        Al acceder y utilizar esta plataforma, usted reconoce y acepta que cualquier acción relacionada con los productos o servicios ofrecidos por los agremiados se realiza bajo su propio riesgo y responsabilidad, eximiendo a la Comunidad SUTERM y al SUTERM de cualquier reclamación, demanda o contingencia legal.
       </p>
       <button id="closeNotice">Aceptar</button>
     </div>
+  </div>
+
+  <!-- Anuncio lateral -->
+  <div id="lateralAd" class="hidden">
+    <h3 id="adTitle">Título del Anuncio</h3>
+    <p id="adText">Texto del anuncio aquí.</p>
   </div>
 
   <header class="site-header">
@@ -110,23 +113,14 @@ Al acceder y utilizar esta plataforma, usted reconoce y acepta que cualquier acc
       </div>
     </section>
 
-    <!-- GRID PRINCIPAL: ANUNCIO + RESULTADOS -->
-    <div class="main-grid">
-      <aside class="ad-section">
-        <!-- Aquí se cargará el anuncio único desde index.js -->
-      </aside>
+    <section class="states" aria-live="polite">
+      <div id="loading" class="hidden">Cargando…</div>
+      <div id="empty">Empieza buscando o usando los filtros.</div>
+      <div id="noResults" class="hidden">No se encontraron resultados.</div>
+      <div id="error" class="hidden">Error al cargar los datos.</div>
+    </section>
 
-      <div class="results-container">
-        <section class="states" aria-live="polite">
-          <div id="loading" class="hidden">Cargando…</div>
-          <div id="empty">Empieza buscando o usando los filtros.</div>
-          <div id="noResults" class="hidden">No se encontraron resultados.</div>
-          <div id="error" class="hidden">Error al cargar los datos.</div>
-        </section>
-
-        <section class="results" id="results"></section>
-      </div>
-    </div>
+    <section class="results" id="results"></section>
   </main>
 
   <footer class="site-footer">
@@ -141,6 +135,5 @@ Al acceder y utilizar esta plataforma, usted reconoce y acepta que cualquier acc
       modal.style.display = "none";
     });
   </script>
-
 </body>
 </html>

@@ -1,11 +1,11 @@
 :root{
-  --bg:#800020;     /* guinda encabezado y footer */
+  --bg:#0d3b66; /* color guinda ahora */
   --fg:#ffffff;
   --ink:#1f2937;
   --muted:#6b7280;
   --card:#ffffff;
   --line:#e5e7eb;
-  --cta:#a0002f;    /* guinda botones y enlaces importantes */
+  --cta:#8B0000; /* guinda */
   --cta-ink:#ffffff;
 }
 
@@ -39,7 +39,7 @@ html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto
 .card-title{margin:0;font-size:1.05rem}
 .card-meta{margin:0;color:var(--muted);font-size:.9rem}
 .card-desc{margin:0;color:#374151;font-size:.95rem;line-height:1.4}
-.card-link{margin-top:4px;align-self:flex-start;background:var(--cta);color:var(--cta-ink);text-decoration:none;padding:8px 10px;border-radius:10px;font-weight:600}
+.card-link{margin-top:4px;align-self:flex-start;background:#111827;color:#fff;text-decoration:none;padding:8px 10px;border-radius:10px;font-weight:600}
 
 .detail-header{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
 .detail-logo{width:92px;height:92px;object-fit:contain;border:1px solid var(--line);border-radius:12px;background:#fafafa}
@@ -55,11 +55,16 @@ html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto
 .btn.outline{background:transparent;border:1.5px solid var(--cta);color:var(--cta)}
 .back-link{color:#fff;text-decoration:none;font-weight:600}
 
-@media (max-width: 900px){
-  .results{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media (max-width: 768px){
+.main-grid{display:grid;grid-template-columns:280px 1fr;gap:16px;margin-top:16px}
+
+.ad-section{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;position:relative}
+.ad-section h3{margin-top:0;margin-bottom:8px;font-size:1rem}
+.ad-close{position:absolute;top:8px;right:8px;background:var(--cta);color:var(--cta-ink);border:none;border-radius:6px;padding:4px 8px;cursor:pointer;font-size:0.8rem}
+
+@media (max-width:900px){.results{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:768px){
   .filters{grid-template-columns:1fr}
   .results{grid-template-columns:1fr}
   .search-row{flex-direction:column}
+  .main-grid{grid-template-columns:1fr}
 }

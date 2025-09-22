@@ -72,16 +72,11 @@ function showAd(ad){
     document.querySelector(".main-grid").prepend(container);
   }
   container.innerHTML = `
-    <button class="ad-close">X</button>
     ${ad.imagen ? `<img src="${ad.imagen}" alt="Anuncio" style="width:100%;border-radius:8px;margin-bottom:8px;">` : ''}
     <h3>${ad.titulo || "Anuncio"}</h3>
     <p>${ad.descripcion || ""}</p>
     ${ad.link ? `<a href="${ad.link}" class="btn" target="_blank">Ver más</a>` : ''}
   `;
-
-  container.querySelector(".ad-close").addEventListener("click", ()=>{
-    container.remove();
-  });
 }
 
 // cargar datos

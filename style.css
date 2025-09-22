@@ -1,11 +1,11 @@
 :root{
-  --bg:#0d3b66; /* color guinda ahora */
+  --bg:#800020; /* guinda */
   --fg:#ffffff;
   --ink:#1f2937;
   --muted:#6b7280;
   --card:#ffffff;
   --line:#e5e7eb;
-  --cta:#8B0000; /* guinda */
+  --cta:#800020; /* guinda */
   --cta-ink:#ffffff;
 }
 
@@ -55,16 +55,31 @@ html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto
 .btn.outline{background:transparent;border:1.5px solid var(--cta);color:var(--cta)}
 .back-link{color:#fff;text-decoration:none;font-weight:600}
 
-.main-grid{display:grid;grid-template-columns:280px 1fr;gap:16px;margin-top:16px}
+/* Sección de anuncios a la izquierda */
+.main-grid {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+.ad-section {
+  flex: 0 0 280px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.results-container {
+  flex: 1;
+}
 
-.ad-section{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;position:relative}
-.ad-section h3{margin-top:0;margin-bottom:8px;font-size:1rem}
-.ad-close{position:absolute;top:8px;right:8px;background:var(--cta);color:var(--cta-ink);border:none;border-radius:6px;padding:4px 8px;cursor:pointer;font-size:0.8rem}
-
-@media (max-width:900px){.results{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:768px){
+@media (max-width: 900px){
+  .results{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width: 768px){
   .filters{grid-template-columns:1fr}
   .results{grid-template-columns:1fr}
   .search-row{flex-direction:column}
-  .main-grid{grid-template-columns:1fr}
+  .main-grid{flex-direction:column}
+  .ad-section{width:100%}
 }

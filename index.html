@@ -6,8 +6,55 @@
   <title>Comunidad SUTERM — Directorio</title>
   <link rel="stylesheet" href="style.css">
   <script src="index.js" defer></script>
+  <style>
+    /* Modal legal */
+    .legal-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .legal-box {
+      background: #fff;
+      padding: 20px;
+      max-width: 500px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .legal-box h2 { margin-top: 0; }
+    .legal-box button {
+      margin-top: 12px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      background: var(--cta);
+      color: var(--cta-ink);
+      font-weight: 600;
+      cursor: pointer;
+      transition: filter 0.2s;
+    }
+    .legal-box button:hover { filter: brightness(1.05); }
+  </style>
 </head>
 <body>
+
+  <!-- Aviso de deslinde legal -->
+  <div id="legalNotice" class="legal-modal">
+    <div class="legal-box">
+      <h2>⚠️ Aviso de deslinde legal</h2>
+      <p>
+        La información contenida en este directorio es proporcionada directamente por los compañeros.
+        Comunidad SUTERM no se hace responsable por la veracidad, calidad, disponibilidad ni legalidad
+        de los productos o servicios aquí publicados. Cada usuario es responsable de verificar la información
+        antes de realizar cualquier transacción.
+      </p>
+      <button id="closeNotice">Aceptar</button>
+    </div>
+  </div>
+
   <header class="site-header">
     <div class="container">
       <h1 class="app-title">COMUNIDAD SUTERM</h1>
@@ -21,7 +68,6 @@
         <input id="q" type="search" placeholder="Buscar por nombre o descripción…" autocomplete="off" />
         <button id="btnBuscar">Buscar</button>
       </div>
-
       <div class="filters">
         <div class="filter">
           <label for="seccion">Sección</label>
@@ -51,5 +97,15 @@
   <footer class="site-footer">
     <div class="container"><small>© Comunidad SUTERM</small></div>
   </footer>
+
+  <script>
+    // Cerrar modal legal
+    const modal = document.getElementById("legalNotice");
+    const btn = document.getElementById("closeNotice");
+    btn.addEventListener("click", ()=>{
+      modal.style.display = "none";
+    });
+  </script>
+
 </body>
 </html>

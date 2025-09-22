@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Comunidad SUTERM — Directorio</title>
+  <meta name="description" content="Directorio de negocios de la Comunidad SUTERM: busca por sección, ciudad y categoría.">
+  <link rel="stylesheet" href="style.css">
+  <script src="index.js" defer></script>
+
+  <meta property="og:title" content="Comunidad SUTERM — Directorio">
+  <meta property="og:description" content="Directorio de negocios de la Comunidad SUTERM: busca por sección, ciudad y categoría.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#7A003C">
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="app-title"\1<span class=\"suterm\">\2</span>\3/h1>
+      <p class="app-subtitle">Negocio de SUTERMISTAS para SUTERMISTAS</p>
+    </div>
+  </header>
+
+  <section id="announcementSection" class="announcement container">
+    <h2>Anuncio destacado</h2>
+    <p class="muted">Sube un anuncio con imagen, título y descripción. Solo habrá uno activo: al subir uno nuevo, se reemplaza el anterior.</p>
+    <form id="announceForm" class="announce-form">
+      <div class="row">
+        <div class="col">
+          <label>Título</label>
+          <input type="text" id="annTitle" placeholder="Título del anuncio" required>
+        </div>
+        <div class="col">
+          <label>Imagen</label>
+          <input type="file" id="annImage" accept="image/*">
+        </div>
+      </div>
+      <label>Descripción</label>
+      <textarea id="annDesc" rows="3" placeholder="Escribe la descripción..." required></textarea>
+      <div class="actions">
+        <button type="submit" class="btn">Guardar anuncio</button>
+        <button type="button" id="annDelete" class="btn outline">Eliminar anuncio</button>
+      </div>
+    </form>
+    <div id="announcePreview" class="announce-preview hidden">
+      <img id="announceImg" alt="Imagen del anuncio" loading="lazy" decoding="async">
+      <div class="announce-body">
+        <h3 id="announceTitle"></h3>
+        <p id="announceText"></p>
+      </div>
+    </div>
+  </section>
+
+
+  <main class="container">
+    <section class="search-bar">
+      <div class="search-row">
+        <input id="q" type="search" placeholder="Buscar por nombre o descripción…" autocomplete="off" />
+        <button id="btnBuscar">Buscar</button>
+      </div>
+
+      <div class="filters">
+        <div class="filter">
+          <label for="seccion">Sección</label>
+          <select id="seccion"><option value="">Todas</option></select>
+        </div>
+        <div class="filter">
+          <label for="ciudad">Ciudad</label>
+          <select id="ciudad"><option value="">Todas</option></select>
+        </div>
+        <div class="filter">
+          <label for="categoria">Categoría</label>
+          <select id="categoria"><option value="">Todas</option></select>
+        </div>
+      </div>
+    </section>
+
+    <section class="states" aria-live="polite">
+      <div id="loading" class="hidden">Cargando…</div>
+      <div id="empty">Empieza buscando o usando los filtros.</div>
+      <div id="noResults" class="hidden">No se encontraron resultados.</div>
+      <div id="error" class="hidden">Error al cargar los datos.</div>
+    </section>
+
+    <section class="results" id="results"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><small>© Comunidad SUTERM</small></div>
+  </footer>
+</body>
+</html>

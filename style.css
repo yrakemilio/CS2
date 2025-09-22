@@ -1,6 +1,6 @@
 :root{
   --guinda:#7A003C;
-  --bg:#0d3b66;
+  --bg:var(--guinda);
   --fg:#ffffff;
   --ink:#1f2937;
   --muted:#6b7280;

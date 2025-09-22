@@ -1,60 +1,38 @@
-// Google Sheet publicado en CSV
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTBAuMdD25rU-PCyLnn_6nOeb_NHRQtOHglGFL2QqMN7BD98JmWvJ1O2o6LkOjhwP0KCxYzTY_V3u9R/pub?gid=0&single=true&output=csv";
+// URL de tu Google Sheet CSV de anuncios (puede ser otro CSV o la misma hoja)
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTBAuMdD25rU-PCyLnn_6nOeb_NHRQtOHglGFL2QqMN7BD98JmWvJ1O2o6LkOjhwP0KCxYzTY_V3u9R/pub?gid=1&single=true&output=csv";
 
 let DATA = [];
 let FILTERS = { q: "", seccion: "", ciudad: "", categoria: "" };
 
 const $ = (sel) => document.querySelector(sel);
 
+// parse CSV básico
 function parseCSV(text){
-  const rows=[]; let row=[], cur='', inQ=false;
-  const pushCell=()=>{ row.push(cur); cur=''; };
-  const pushRow =()=>{ rows.push(row); row=[]; };
-
-  for (let i=0;i<text.length;i++){
-    const c=text[i];
-    if(c === '"'){
-      if(inQ && text[i+1] === '"'){ cur += '"'; i++; }
-      else inQ = !inQ;
-    } else if(c === ',' && !inQ){
-      pushCell();
-    } else if((c === '\n' || c === '\r') && !inQ){
-      if(c==='\r' && text[i+1]==='\n') i++;
-      pushCell(); pushRow();
-    } else {
-      cur += c;
-    }
-  }
-  if(cur.length || row.length){ pushCell(); pushRow(); }
-
-  if(!rows.length) return [];
-  const headers = rows.shift().map(h => String(h||'').trim().toLowerCase());
-  return rows
-    .filter(r => r.some(c => String(c||'').trim()!==''))
-    .map((r,i) => {
-      const o={};
-      headers.forEach((h,idx)=> o[h]=String(r[idx]||'').trim());
-      // Si no existe columna id, generamos uno automático
-      if(!o.id) o.id = i+1;
-      return o;
-    });
+  const rows = text.trim().split("\n");
+  const headers = rows.shift().split(",").map(h=>h.trim().toLowerCase());
+  return rows.map(l=>{
+    const cells = l.split(",");
+    const obj={}; headers.forEach((h,i)=> obj[h]=cells[i]?.trim());
+    return obj;
+  });
 }
 
+// render de resultados
 function renderCards(items){
   $("#results").innerHTML = items.map(it=>`
     <article class="card">
       ${it.logo ? `<img class="card-logo" src="${it.logo}" alt="Logo ${it.nombre}">` : ''}
       <div class="card-body">
-        <h3 class="card-title">${it.nombre || "Sin nombre"}</h3>
+        <h3 class="card-title">${it.nombre}</h3>
         <p class="card-meta">${[it.categoria,it.ciudad,it.seccion].filter(Boolean).join(" • ")}</p>
-        <p class="card-desc">${(it.descripcion || "").slice(0,120)}…</p>
+        <p class="card-desc">${(it.descripcion||"").slice(0,120)}…</p>
         <a class="card-link" href="detalle.html?id=${it.id}">Ver más</a>
       </div>
     </article>
   `).join("");
 }
 
-// Llenar dinámicamente los selectores de los filtros
+// llenar filtros
 function populateFilters(){
   const secciones = [...new Set(DATA.map(d=>d.seccion))].filter(Boolean);
   const ciudades = [...new Set(DATA.map(d=>d.ciudad))].filter(Boolean);
@@ -70,12 +48,11 @@ function populateFilters(){
   renderOptions(categorias, "categoria");
 }
 
+// aplicar filtros
 function applyFilters(){
   const q = FILTERS.q.toLowerCase();
   let list = DATA.filter(r=>{
-    return (!q || 
-            (r.nombre || "").toLowerCase().includes(q) || 
-            (r.descripcion || "").toLowerCase().includes(q)) &&
+    return (!q || r.nombre.toLowerCase().includes(q) || r.descripcion.toLowerCase().includes(q)) &&
            (!FILTERS.seccion || r.seccion===FILTERS.seccion) &&
            (!FILTERS.ciudad || r.ciudad===FILTERS.ciudad) &&
            (!FILTERS.categoria || r.categoria===FILTERS.categoria);
@@ -85,6 +62,29 @@ function applyFilters(){
   renderCards(list);
 }
 
+// mostrar anuncio único
+function showAd(ad){
+  let container = document.querySelector(".ad-section");
+  if(!container){
+    // si no existe, creamos la sección
+    container = document.createElement("div");
+    container.className = "ad-section";
+    document.querySelector(".main-grid").prepend(container);
+  }
+  container.innerHTML = `
+    <button class="ad-close">X</button>
+    ${ad.imagen ? `<img src="${ad.imagen}" alt="Anuncio" style="width:100%;border-radius:8px;margin-bottom:8px;">` : ''}
+    <h3>${ad.titulo || "Anuncio"}</h3>
+    <p>${ad.descripcion || ""}</p>
+    ${ad.link ? `<a href="${ad.link}" class="btn" target="_blank">Ver más</a>` : ''}
+  `;
+
+  container.querySelector(".ad-close").addEventListener("click", ()=>{
+    container.remove();
+  });
+}
+
+// cargar datos
 async function loadData(){
   $("#loading").classList.remove("hidden");
   try{
@@ -93,8 +93,12 @@ async function loadData(){
     DATA = parseCSV(text);
     populateFilters();
     $("#loading").classList.add("hidden");
-    // Mostrar todos al inicio
-    applyFilters();
+    $("#empty").classList.remove("hidden");
+
+    // si hay anuncios en el CSV (marcados con ad=true), mostramos el primero
+    const ad = DATA.find(d=>d.ad && d.ad.toLowerCase() === "true");
+    if(ad) showAd(ad);
+
   }catch(e){
     console.error(e);
     $("#loading").classList.add("hidden");
@@ -102,6 +106,7 @@ async function loadData(){
   }
 }
 
+// eventos de filtros
 $("#btnBuscar").addEventListener("click",()=>{ FILTERS.q=$("#q").value; applyFilters(); });
 ["seccion","ciudad","categoria"].forEach(id=>{
   $("#"+id).addEventListener("change",e=>{ FILTERS[id]=e.target.value; applyFilters(); });

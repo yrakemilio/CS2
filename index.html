@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Comunidad SUTERM — Directorio</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="index.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="app-title">COMUNIDAD SUTERM</h1>
+      <p class="app-subtitle">Negocio de SUTERMISTAS para SUTERMISTAS</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="search-bar">
+      <div class="search-row">
+        <input id="q" type="search" placeholder="Buscar por nombre o descripción…" autocomplete="off" />
+        <button id="btnBuscar">Buscar</button>
+      </div>
+
+      <div class="filters">
+        <div class="filter">
+          <label for="seccion">Sección</label>
+          <select id="seccion"><option value="">Todas</option></select>
+        </div>
+        <div class="filter">
+          <label for="ciudad">Ciudad</label>
+          <select id="ciudad"><option value="">Todas</option></select>
+        </div>
+        <div class="filter">
+          <label for="categoria">Categoría</label>
+          <select id="categoria"><option value="">Todas</option></select>
+        </div>
+      </div>
+    </section>
+
+    <section class="states" aria-live="polite">
+      <div id="loading" class="hidden">Cargando…</div>
+      <div id="empty">Empieza buscando o usando los filtros.</div>
+      <div id="noResults" class="hidden">No se encontraron resultados.</div>
+      <div id="error" class="hidden">Error al cargar los datos.</div>
+    </section>
+
+    <section class="results" id="results"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><small>© Comunidad SUTERM</small></div>
+  </footer>
+</body>
+</html>

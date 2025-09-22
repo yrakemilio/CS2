@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Comunidad SUTERM — Detalle</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="detalle.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="app-title">COMUNIDAD SUTERM</h1>
+      <a class="back-link" href="index.html">← Volver</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="detailLoading">Cargando…</div>
+    <div id="detailError" class="hidden">No se pudo cargar el negocio.</div>
+
+    <article id="detail" class="hidden">
+      <header class="detail-header">
+        <img id="detailLogo" class="detail-logo" alt="Logo del negocio" />
+        <div>
+          <h2 id="detailName" class="detail-name"></h2>
+          <p id="detailMeta" class="detail-meta"></p>
+        </div>
+      </header>
+
+      <section class="detail-description">
+        <h3>Descripción</h3>
+        <p id="detailDesc"></p>
+      </section>
+
+      <section class="detail-gallery">
+        <h3>Galería</h3>
+        <div class="gallery" id="detailGallery"></div>
+      </section>
+
+      <section class="detail-actions">
+        <a id="btnWhatsApp" class="btn" href="#" target="_blank">WhatsApp</a>
+        <a id="btnWeb" class="btn outline" href="#" target="_blank">Contacta aquí y obten un descuento</a>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><small>© Comunidad SUTERM</small></div>
+  </footer>
+</body>
+</html>
